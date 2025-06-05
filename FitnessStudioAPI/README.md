@@ -168,59 +168,6 @@ The API returns appropriate HTTP status codes and JSON error messages for variou
 
 All operations are logged with timestamps for auditing and debugging purposes. Logs are output to the console.
 
-## Database Operations
 
-### Backup Database
-```bash
-# On Linux/macOS
-cp instance/fitness_studio.db instance/fitness_studio_backup_$(date +%Y%m%d).db
 
-# On Windows
-copy instance\fitness_studio.db instance\fitness_studio_backup_%date:~-4,4%%date:~-10,2%%date:~-7,2%.db
-```
 
-### Query Database Directly
-You can use the SQLite command-line tool to query the database directly:
-
-```bash
-sqlite3 instance/fitness_studio.db
-
--- List all tables
-.tables
-
--- View schema of a table
-.schema fitness_classes
-
--- Query data
-SELECT * FROM fitness_classes;
-SELECT * FROM bookings;
-
--- Exit
-.exit
-```
-
-## Testing
-
-You can test the API using tools like `curl` or Postman. Here are some example requests:
-
-```bash
-# Get all classes
-curl http://localhost:5000/classes
-
-# Book a class
-curl -X POST http://localhost:5000/book \
-  -H "Content-Type: application/json" \
-  -d '{"class_id": 1, "client_name": "John Doe", "client_email": "john@example.com"}'
-
-# Get bookings by email
-curl "http://localhost:5000/bookings?email=john@example.com"
-```
-
-## Future Enhancements
-
-- Add authentication and user accounts
-- Implement class cancellation
-- Add more detailed validation
-- Add database persistence
-- Add rate limiting
-- Add more comprehensive documentation with Swagger/OpenAPI
